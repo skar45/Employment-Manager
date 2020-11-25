@@ -3,7 +3,7 @@ const db = require('./connection')
 const table = require('console.table')
 
 async function main(){
-    const answer = await inquirer.prompt({name: "init", type:"list", message:"choose one", choices:['Add','View','Update employee roles']})
+    const answer = await inquirer.prompt({name: "init", type:"list", message:"choose one", choices:['Add','View','Update']})
     if(answer.init == 'Add'){
         const add = await inquirer.prompt({name: "add", type:"list", message: "Which one would you like to add?", 
             choices: ['departments','roles','employees']
@@ -46,7 +46,7 @@ async function main(){
         const title = await inquirer.prompt({name: "title", type:"input", message: "Title?"})
         const salary = await inquirer.prompt({name: "salary", type:"input", message: "Salary?"})
         const dept = await inquirer.prompt({name: "dept", type:"input", message: "Department ID?"})
-        db.query(`UPDATE employee_role SET title = ? SET salary = ? SET department_id = ? WHERE id = ?`[title.title,salary.salary,dept.dept,answer.id])
+        db.query("UPDATE employee_role SET title = ?, salary = ?, department_id = ? WHERE id = ?",[title.title,salary.salary,dept.dept,answer.id])
     }
     main()
 }
